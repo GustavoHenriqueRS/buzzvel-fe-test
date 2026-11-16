@@ -1,0 +1,123 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+  will-change: clip-path;
+  container-type: size;
+  /* Failsafe: if JS never runs, the overlay leaves by itself. */
+  animation: failsafe 0.35s ease-out 9s forwards;
+}
+
+.root[data-position="absolute"] {
+  position: absolute;
+  z-index: 2;
+}
+
+.root[data-js] {
+  animation: none;
+}
+
+/* Only shown when the head script armed the page: no JS, reduced motion or a
+   runtime that never started means no loader at all. */
+:global(html:not(.motion-armed)) .root {
+  display: none;
+}
+
+/* Start below the masks from the first paint, so the server-rendered copy does
+   not flash before the intro lifts it. */
+.line,
+.counter {
+  transform: translateY(100%);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(0.875rem, 2.2cqi, 1.5rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.col:last-child {
+  text-align: right;
+}
+
+.mask {
+  display: block;
+  overflow: hidden;
+}
+
+.line {
+  display: block;
+  will-change: transform;
+}
+
+.foot {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.counter {
+  display: block;
+  /* Fixed width + tabular figures: 00 -> 100 never reflows. */
+  width: 3ch;
+  font-size: clamp(2.5rem, 14cqi, 9rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-blue);
+  font-variant-numeric: tabular-nums;
+  will-change: transform;
+}
+
+.track {
+  height: 1px;
+  background: var(--color-line);
+}
+
+.bar {
+  height: 100%;
+  background: var(--color-blue);
+  transform-origin: left center;
+}
+
+@media (max-width: 767px) {
+  .cols {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .col:last-child {
+    text-align: left;
+  }
+
+  .counter {
+    font-size: 4.5rem;
+  }
+}
+
+@keyframes failsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
