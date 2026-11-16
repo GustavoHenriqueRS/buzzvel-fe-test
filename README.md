@@ -3,7 +3,8 @@
 A responsive landing page for "Luma", built from the **Buzzvel FE Test 2026** Figma file with
 **Next.js (App Router), TypeScript and Tailwind CSS**.
 
-**Live:** https://buzzvel-fe-test-theta.vercel.app
+**Live:** https://buzzvel-fe-test-theta.vercel.app · **Demo video:** https://buzzvel-fe-test-theta.vercel.app/demo/luma-demo.mp4
+(screen recording of the live page at 1280px and 402px: preloader, hero entrance, scroll entrances, form validation, mobile menu)
 
 ## Getting started
 
